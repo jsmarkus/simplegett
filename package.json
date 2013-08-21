@@ -1,0 +1,8 @@
+{
+  "name": "simplegett",
+  "version": "0.0.1",
+  "dependencies": {
+    "request": "~2.27.0",
+    "async": "~0.2.9"
+  }
+}

@@ -1,5 +1,6 @@
 {
   "name": "simplegett",
+  "description":"Simple ge.tt API client.",
   "version": "0.0.1",
   "dependencies": {
     "request": "~2.27.0",

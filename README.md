@@ -1,5 +1,7 @@
 # simplegett
 
+Simple ge.tt API client.
+
 ## Installation
 
 ```
@@ -9,7 +11,7 @@ npm install simplegett
 ## Usage
 
 ```javascript
-var gett = require('./');
+var gett = require('simplegett');
 
 var key = '';     //your API key
 var email = '';   //your email

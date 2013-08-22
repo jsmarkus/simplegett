@@ -1,4 +1,4 @@
-var gett = require('./');
+var gett = require('../');
 
 var key = '';     //fill
 var email = '';   //fill

@@ -101,7 +101,7 @@ exports.createFile = function(token, shareName, fileName, next) {
     });
 };
 
-exports._uploadFile = function(token, fileMeta, buffer, next) {
+exports._uploadBuffer = function(token, fileMeta, buffer, next) {
     var upload = fileMeta.upload;
     var uri = upload.puturl;
 
@@ -121,9 +121,28 @@ exports._uploadFile = function(token, fileMeta, buffer, next) {
     });
 };
 
+exports._uploadStream = function(token, fileMeta, stream, next) {
+    var upload = fileMeta.upload;
+    var uri = upload.puturl;
+
+    stream.pipe(request({
+        method: 'PUT',
+        uri: uri,
+        qs: {
+            accesstoken: token
+        }
+    }, function(err, res, body) {
+        if (err) {
+            next(err);
+            return;
+        }
+        next(null, body);
+    }));
+};
+
 //--------------------------------------------------------------------
 
-exports.uploadFile = function (key, email, password, fileName, buffer, allDone) {
+exports.uploadFile = function (key, email, password, fileName, bufferOrStream, allDone) {
     var token;
     var resultFileMeta;
 
@@ -155,7 +174,11 @@ exports.uploadFile = function (key, email, password, fileName, buffer, allDone) 
 
         function(fileMeta, next) {
             resultFileMeta = fileMeta;
-            gett._uploadFile(token, fileMeta, buffer, next);
+            if(bufferOrStream instanceof Buffer) {
+                gett._uploadBuffer(token, fileMeta, bufferOrStream, next);
+            } else {
+                gett._uploadStream(token, fileMeta, bufferOrStream, next);
+            }
         }
 
 
